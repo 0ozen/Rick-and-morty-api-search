@@ -3,16 +3,19 @@ import { Lista } from './listaBuscador/lista'
 import { useState, useEffect } from 'react'
 
 function App() {
+  
+  //para cambiar de pagina y guardar la lista de personajes
   const [count, setCount] = useState(1);
-  const [buscador, setBuscador] = useState(false);
-  const [names, setnames] = useState([]);
+  const [lista, setLista] = useState([]);
+  
+  //para iniciar el buscador y enviar el nombre buscado
   const [nombre, setNombre] = useState("");
-
+  const [buscador, setBuscador] = useState(false);
 
   const buscar = () => {
     fetch("https://rickandmortyapi.com/api/character/?page=" + count)
       .then(res => res.json())
-      .then(res => setnames(res.results))
+      .then(res => setLista(res.results))
   } 
   useEffect(() => {
     buscar()
@@ -92,7 +95,7 @@ function App() {
 
       <div className="personajes">
         {
-          names.map((item) => {       
+          lista.map((item) => {       
              return(
               <div className="list" key={item.id}>
                   <img src={item.image} alt="imagen del personaje" />
